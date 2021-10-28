@@ -12,5 +12,4 @@ public class ConstructTree {
         tree.buildClassifier(instances);   // build classifier
         return tree;
     }
-
 }

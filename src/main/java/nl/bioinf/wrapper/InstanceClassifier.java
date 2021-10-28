@@ -9,7 +9,7 @@ public class InstanceClassifier {
         for (int i = 0; i < unknownInstances.numInstances(); i++) {
             double label = model.classifyInstance(unknownInstances.instance(i));
             classified.instance(i).setClassValue(label);
+            System.out.println("\nNew, labeled = \n" + classified.instance(i));
         }
-        System.out.println("\nNew, labeled = \n" + classified);
     }
 }

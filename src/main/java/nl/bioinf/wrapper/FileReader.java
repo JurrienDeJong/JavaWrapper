@@ -1,7 +1,7 @@
 package nl.bioinf.wrapper;
 
 import weka.core.Instances;
-import weka.core.converters.ConverterUtils;
+import weka.core.converters.ConverterUtils.DataSource;
 
 import java.io.IOException;
 
@@ -11,13 +11,15 @@ public class FileReader {
         try {
             // The DataSource class is not limited to ARFF files.
             // It can also read CSV files and other formats.
-            ConverterUtils.DataSource source = new ConverterUtils.DataSource(datafile);
+            DataSource source = new DataSource(datafile);
             Instances data = source.getDataSet();
-            if (data.classIndex() == -1)
+            if (data.classIndex() == -1) {
                 data.setClassIndex(data.numAttributes() - 1);
+            }
             return data;
         } catch (Exception e) {
             throw new IOException("could not read from file");
         }
     }
 }
+
