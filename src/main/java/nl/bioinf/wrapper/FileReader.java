@@ -7,8 +7,10 @@ import java.io.IOException;
 
 public class FileReader {
 
-    public Instances loadArff(String datafile) throws IOException {
+    public Instances loadDataFiles(String datafile) throws IOException {
         try {
+            // The DataSource class is not limited to ARFF files.
+            // It can also read CSV files and other formats.
             ConverterUtils.DataSource source = new ConverterUtils.DataSource(datafile);
             Instances data = source.getDataSet();
             if (data.classIndex() == -1)

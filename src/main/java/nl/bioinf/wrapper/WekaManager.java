@@ -1,10 +1,7 @@
 package nl.bioinf.wrapper;
 
 import weka.classifiers.trees.J48;
-import weka.core.Instance;
 import weka.core.Instances;
-import weka.core.converters.ConverterUtils.DataSource;
-import java.io.IOException;
 
 public class WekaManager {
 
@@ -14,9 +11,26 @@ public class WekaManager {
     }
 
     private void start(){
-        //Read files
         FileReader fileReader = new FileReader();
-        String file_path = "kaas.txt";
-        Instances data = fileReader.loadArff(file_path);
+        String known_instances = "datafiles/weather.nominal.arff";
+        String unknown_instances = "datafiles/unknown_weather.arff";
+        String model_file = "datafiles/j48.model";
+        try {
+            Instances data = fileReader.loadDataFiles(known_instances);
+            Instances unknown_data = fileReader.loadDataFiles(unknown_instances);
+
+            ConstructTree j48 = new ConstructTree();
+            J48 tree = j48.buildTree(data);
+
+            SerializeModel save = new SerializeModel();
+            save.saveModel(model_file, tree);
+            DeserializeModel load = new DeserializeModel();
+            J48 model = load.loadModel(model_file);
+
+            InstanceClassifier Classifier = new InstanceClassifier();
+            Classifier.classifyNewInstances(model, unknown_data);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
