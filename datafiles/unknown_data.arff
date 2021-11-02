@@ -1,0 +1,13 @@
+@relation data
+
+@attribute age numeric
+@attribute serum_creatinine numeric
+@attribute serum_sodium numeric
+@attribute DEATH_EVENT {True,False}
+
+@data
+75,1.9,130,?
+55,1.1,136,?
+45,0.8,138,?
+45,1.4,140,?
+50,1.6,136,?

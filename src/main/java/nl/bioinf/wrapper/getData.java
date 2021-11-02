@@ -5,7 +5,7 @@ import weka.core.converters.ConverterUtils.DataSource;
 
 import java.io.IOException;
 
-public class FileReader {
+public class getData {
 
     public Instances loadDataFiles(String datafile) throws IOException {
         try {
@@ -21,5 +21,6 @@ public class FileReader {
             throw new IOException("could not read from file");
         }
     }
+
 }
 

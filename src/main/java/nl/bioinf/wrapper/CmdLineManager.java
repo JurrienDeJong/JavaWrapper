@@ -6,6 +6,9 @@ public class CmdLineManager implements OptionsProvider{
     private Options options;
     private CommandLine cmd;
     private String file_path;
+    private double serSodium;
+    private double serCreatinin;
+    private int age;
 
     public CmdLineManager(String[] args) {
         addOptions();
@@ -20,7 +23,7 @@ public class CmdLineManager implements OptionsProvider{
                 "Print the Java Wrapper help."));
         options.addOption(new Option("f",
                 "file",
-                true,
+                false,
                 "The file with instances to be classified."));
         options.addOption(new Option("a",
                 "age ( in years )",
@@ -52,10 +55,18 @@ public class CmdLineManager implements OptionsProvider{
     }
 
     private void verifyArguments() throws ParseException {
-        if (!cmd.hasOption('f')) {
-            throw new ParseException("No file found/provided");
-        } else {
+        if (cmd.hasOption('f')) {
             this.file_path = cmd.getOptionValue('f');
+        }
+        else
+        {
+            if (!cmd.hasOption('a') | !cmd.hasOption('c') | !cmd.hasOption('s')) {
+                throw new ParseException("No input parameters or file found!");
+            } else {
+                this.serCreatinin = Double.parseDouble(cmd.getOptionValue('c'));
+                this.serSodium = Double.parseDouble(cmd.getOptionValue('s'));
+                this.age = Integer.parseInt(cmd.getOptionValue('a'));
+            }
         }
     }
 
@@ -70,5 +81,16 @@ public class CmdLineManager implements OptionsProvider{
     public String getFilePath() {
         return file_path;
     }
-}
 
+    public double getSerSodium() {
+        return serSodium;
+    }
+
+    public double getSerCreatinin() {
+        return serCreatinin;
+    }
+
+    public int getAge() {
+        return age;
+    }
+}

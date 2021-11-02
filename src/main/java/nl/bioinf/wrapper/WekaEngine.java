@@ -3,21 +3,27 @@ package nl.bioinf.wrapper;
 import weka.classifiers.trees.J48;
 import weka.core.Instances;
 
+import java.util.Objects;
+
 public class WekaEngine {
     public static void main(String[] args) {
         WekaEngine runner = new WekaEngine();
         OptionsProvider optionsProvider = new CmdLineManager(args);
         runner.start(optionsProvider);
     }
+
+
     private void start(OptionsProvider optionsProvider){
-        FileReader fileReader = new FileReader();
-        final String known_instances = "datafiles/weather.nominal.arff";
+        getData getData = new getData();
+        final String known_instances = "datafiles/data.arff";
         final String model_file = "datafiles/j48.model";
-        String unknown_instances = optionsProvider.getFilePath();
 
         try {
-            Instances data = fileReader.loadDataFiles(known_instances);
-            Instances unknown_data = fileReader.loadDataFiles(unknown_instances);
+
+            String unknown_instances = optionsProvider.getFilePath();
+            Instances unknown_data = getData.loadDataFiles(unknown_instances);
+
+
             ConstructTree j48 = new ConstructTree();
             J48 tree = j48.buildTree(data);
             SerializeModel save = new SerializeModel();
