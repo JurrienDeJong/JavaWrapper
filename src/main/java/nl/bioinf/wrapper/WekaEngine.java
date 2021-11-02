@@ -6,13 +6,14 @@ import weka.core.Instances;
 public class WekaEngine {
     public static void main(String[] args) {
         WekaEngine runner = new WekaEngine();
-        runner.start();
+        OptionsProvider optionsProvider = new CmdLineManager(args);
+        runner.start(optionsProvider);
     }
-    private void start(){
+    private void start(OptionsProvider optionsProvider){
         FileReader fileReader = new FileReader();
-        String known_instances = "datafiles/weather.nominal.arff";
-        String unknown_instances = "datafiles/unknown_weather.arff";
-        String model_file = "datafiles/j48.model";
+        final String known_instances = "datafiles/weather.nominal.arff";
+        final String model_file = "datafiles/j48.model";
+        String unknown_instances = optionsProvider.getFilePath();
 
         try {
             Instances data = fileReader.loadDataFiles(known_instances);
