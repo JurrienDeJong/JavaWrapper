@@ -6,4 +6,5 @@ public interface OptionsProvider
     int getAge();
     double getSerCreatinin();
     double getSerSodium();
+    boolean getInputType();
 }

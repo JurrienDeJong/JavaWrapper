@@ -3,12 +3,13 @@ package nl.bioinf.wrapper;
 import org.apache.commons.cli.*;
 
 public class CmdLineManager implements OptionsProvider{
-    private Options options;
-    private CommandLine cmd;
-    private String file_path;
-    private double serSodium;
-    private double serCreatinin;
-    private int age;
+    protected Options options;
+    protected CommandLine cmd;
+    protected String file_path;
+    protected double serSodium;
+    protected double serCreatinin;
+    protected int age;
+    protected boolean useFile = false;
 
     public CmdLineManager(String[] args) {
         addOptions();
@@ -21,10 +22,6 @@ public class CmdLineManager implements OptionsProvider{
                 "number",
                 false,
                 "Print the Java Wrapper help."));
-        options.addOption(new Option("f",
-                "file",
-                false,
-                "The file with instances to be classified."));
         options.addOption(new Option("a",
                 "age ( in years )",
                 true,
@@ -37,10 +34,14 @@ public class CmdLineManager implements OptionsProvider{
                 "Serum Sodium ( in mEq/L )",
                 true,
                 "Level of serum creatinine in the blood - in mEq/L"));
+        options.addOption(new Option("f",
+                "file",
+                true,
+                "The file with instances to be classified."));
     }
 
     private void argParse(String[] args) {
-        CommandLineParser parser = new BasicParser();
+        CommandLineParser parser = new DefaultParser();
         try {
             this.cmd = parser.parse(options, args);
             if (cmd.hasOption('h')) {
@@ -57,12 +58,15 @@ public class CmdLineManager implements OptionsProvider{
     private void verifyArguments() throws ParseException {
         if (cmd.hasOption('f')) {
             this.file_path = cmd.getOptionValue('f');
+            useFile = true;
+            System.out.println("Input Type:\nTaking input file: " + this.file_path + "\n");
         }
         else
         {
             if (!cmd.hasOption('a') | !cmd.hasOption('c') | !cmd.hasOption('s')) {
                 throw new ParseException("No input parameters or file found!");
             } else {
+                System.out.println("Input Type:\nTaking input params\n");
                 this.serCreatinin = Double.parseDouble(cmd.getOptionValue('c'));
                 this.serSodium = Double.parseDouble(cmd.getOptionValue('s'));
                 this.age = Integer.parseInt(cmd.getOptionValue('a'));
@@ -81,16 +85,21 @@ public class CmdLineManager implements OptionsProvider{
     public String getFilePath() {
         return file_path;
     }
-
+    @Override
     public double getSerSodium() {
         return serSodium;
     }
-
+    @Override
     public double getSerCreatinin() {
         return serCreatinin;
     }
-
+    @Override
     public int getAge() {
         return age;
+    }
+
+    @Override
+    public boolean getInputType() {
+        return useFile;
     }
 }

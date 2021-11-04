@@ -3,7 +3,7 @@
 @attribute age numeric
 @attribute serum_creatinine numeric
 @attribute serum_sodium numeric
-@attribute DEATH_EVENT {True,False}
+@attribute DEATH_EVENT {1,0}
 
 @data
 75,1.9,130,?

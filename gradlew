@@ -60,23 +60,23 @@ die () {
     exit 1
 }
 
-# OS specific support (must be 'true' or 'false').
-cygwin=false
-msys=false
-darwin=false
-nonstop=false
+# OS specific support (must be '1' or '0').
+cygwin=0
+msys=0
+darwin=0
+nonstop=0
 case "`uname`" in
   CYGWIN* )
-    cygwin=true
+    cygwin=1
     ;;
   Darwin* )
-    darwin=true
+    darwin=1
     ;;
   MSYS* | MINGW* )
-    msys=true
+    msys=1
     ;;
   NONSTOP* )
-    nonstop=true
+    nonstop=1
     ;;
 esac
 
@@ -106,7 +106,7 @@ location of your Java installation."
 fi
 
 # Increase the maximum file descriptors if we can.
-if [ "$cygwin" = "false" -a "$darwin" = "false" -a "$nonstop" = "false" ] ; then
+if [ "$cygwin" = "0" -a "$darwin" = "0" -a "$nonstop" = "0" ] ; then
     MAX_FD_LIMIT=`ulimit -H -n`
     if [ $? -eq 0 ] ; then
         if [ "$MAX_FD" = "maximum" -o "$MAX_FD" = "max" ] ; then
@@ -127,7 +127,7 @@ if $darwin; then
 fi
 
 # For Cygwin or MSYS, switch paths to Windows format before running java
-if [ "$cygwin" = "true" -o "$msys" = "true" ] ; then
+if [ "$cygwin" = "1" -o "$msys" = "1" ] ; then
     APP_HOME=`cygpath --path --mixed "$APP_HOME"`
     CLASSPATH=`cygpath --path --mixed "$CLASSPATH"`
 
