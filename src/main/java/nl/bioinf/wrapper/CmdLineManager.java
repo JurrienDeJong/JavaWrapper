@@ -38,10 +38,14 @@ public class CmdLineManager implements OptionsProvider{
                 "file",
                 true,
                 "The file with instances to be classified."));
+        options.addOption(new Option("o",
+                "file",
+                true,
+                "Output file destination."));
     }
 
     private void argParse(String[] args) {
-        CommandLineParser parser = new DefaultParser();
+        CommandLineParser parser = new BasicParser();
         try {
             this.cmd = parser.parse(options, args);
             if (cmd.hasOption('h')) {
@@ -59,14 +63,14 @@ public class CmdLineManager implements OptionsProvider{
         if (cmd.hasOption('f')) {
             this.file_path = cmd.getOptionValue('f');
             useFile = true;
-            System.out.println("Input Type:\nTaking input file: " + this.file_path + "\n");
+            System.out.println("Input Type: File\nTaking input file: " + this.file_path + "\n");
         }
         else
         {
             if (!cmd.hasOption('a') | !cmd.hasOption('c') | !cmd.hasOption('s')) {
                 throw new ParseException("No input parameters or file found!");
             } else {
-                System.out.println("Input Type:\nTaking input params\n");
+                System.out.println("Input Type: Single Instance\nTaking input params\n");
                 this.serCreatinin = Double.parseDouble(cmd.getOptionValue('c'));
                 this.serSodium = Double.parseDouble(cmd.getOptionValue('s'));
                 this.age = Integer.parseInt(cmd.getOptionValue('a'));

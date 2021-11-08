@@ -1,12 +1,8 @@
 package nl.bioinf.wrapper;
 
-import weka.core.*;
-import weka.classifiers.*;
 import weka.core.converters.ConverterUtils.DataSource;
-import weka.core.Instance;
 import weka.core.Instances;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class getData {
 

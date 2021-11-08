@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class WekaEngine {
     public static void main(String[] args) {
-        System.out.println("---- Starting Program ----\n");
+        System.out.println("\n---- Starting Program ----\n");
         WekaEngine runner = new WekaEngine();
         OptionsProvider optionsProvider = new CmdLineManager(args);
         runner.start(optionsProvider);

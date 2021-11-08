@@ -21,9 +21,9 @@ public class ClassifyInstances {
 
         double predictedClass = model.classifyInstance(inst);
         System.out.println("Classified Instance:");
-        System.out.println("Age ( in years ): " + values[0] +
-                "\nSerum Creatinine ( in mg/dL ): " + values[1] +
-                "\nSerum Sodium ( in mEq/L ): " + values[2] + "\n");
+        System.out.println("\tAge ( in years ): " + values[0] +
+                "\n\tSerum Creatinine ( in mg/dL ): " + values[1] +
+                "\n\tSerum Sodium ( in mEq/L ): " + values[2] + "\n");
         printResults(predictedClass);
     }
 
@@ -35,9 +35,9 @@ public class ClassifyInstances {
             // Create a shorter version, makes it easier to read.
             // Get the values of each instance attribute:
             Instance inst = unknownInstances.instance(i);
-            System.out.println("Age ( in years ): " + Math.round(inst.value(0))+
-                    "\nSerum Creatinine ( in mg/dL ): " + inst.value(1) +
-                    "\nSerum Sodium ( in mEq/L ): " + inst.value(2) + "\n");
+            System.out.println("\tAge ( in years ): " + Math.round(inst.value(0))+
+                    "\n\tSerum Creatinine ( in mg/dL ): " + inst.value(1) +
+                    "\n\tSerum Sodium ( in mEq/L ): " + inst.value(2) + "\n");
             printResults(predictedClass);
         }
     }
