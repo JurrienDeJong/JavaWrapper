@@ -12,7 +12,11 @@ import java.io.IOException;
  */
 
 public class getData {
-
+    /**
+     * Reads the data from datafile
+     * @param datafile The path to the datafile
+     * @return data The instances read from file
+     */
     public static Instances loadDataFiles(String datafile) throws IOException {
         try {
             DataSource source = new DataSource(datafile);

@@ -13,6 +13,12 @@ import weka.core.Instances;
  */
 
 public class ClassifyInstances {
+    /**
+     * Classify a single instance
+     * @param model The J48 model
+     * @param data known instances
+     * @param values double array containing patient data
+     */
     // Only classify a single instance
     protected void classifyNewInstance(J48 model, Instances data, double[] values) throws  Exception
     {
@@ -33,6 +39,11 @@ public class ClassifyInstances {
         printResults(predictedClass);
     }
 
+    /**
+     * Classify an instance file
+     * @param tree The J48 model
+     * @param unknownInstances The unknown instances read from file
+     */
     protected void classifyInstanceFile(J48 tree, Instances unknownInstances) throws Exception {
         for (int i = 0; i < unknownInstances.numInstances(); i++) {
             // Loop over each instance and get the class label:
@@ -49,6 +60,10 @@ public class ClassifyInstances {
         }
     }
 
+    /**
+     * Print the result per patient
+     * @param predictedClass The class predicted for each entry
+     */
     private void printResults(double predictedClass){
         // Print the case for the corresponding Class
         // Switch sadly cannot handle doubles.

@@ -11,6 +11,9 @@ import weka.core.Instances;
  */
 
 public class WekaEngine {
+    /**
+     * Get user options and run the algorithm.
+     */
     public static void main(String[] args) {
         System.out.println("\n---- Starting Program ----\n");
         WekaEngine runner = new WekaEngine();
@@ -20,7 +23,10 @@ public class WekaEngine {
         runner.start(optionsProvider);
     }
 
-
+    /**
+     * Starts the algorithm and classifies instances
+     * @param options The ProvideOptions interface
+     */
     private void start(ProvideOptions options) {
         // Final variables, the path to the known-data and
         // where we want the model to be placed.

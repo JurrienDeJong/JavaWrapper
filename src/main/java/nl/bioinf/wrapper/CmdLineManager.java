@@ -21,11 +21,18 @@ public class CmdLineManager implements ProvideOptions{
     protected int age;
     protected boolean useFile = false;
 
+    /**
+     * Functions as an init
+     * @param args given user args
+     */
     public CmdLineManager(String[] args) {
         addOptions();
         argParse(args);
     }
 
+    /**
+     * Adds options which a user can give the program
+     */
     private void addOptions(){
         this.options = new Options();
         options.addOption(new Option("h",
@@ -50,6 +57,10 @@ public class CmdLineManager implements ProvideOptions{
                 "The file with instances to be classified."));
     }
 
+    /**
+     * Adds options which a user can give the program
+     * @param args Given user args
+     */
     private void argParse(String[] args) {
         // Parse the arguments using a CommandLineParser
         CommandLineParser parser = new BasicParser();
@@ -67,6 +78,9 @@ public class CmdLineManager implements ProvideOptions{
         }
     }
 
+    /**
+     * Check if the given arguments are valid
+     */
     private void checkArguments() throws ParseException {
         // Verify file;
         if (cmd.hasOption('f')) {
@@ -89,6 +103,9 @@ public class CmdLineManager implements ProvideOptions{
         }
     }
 
+    /**
+     * Print help if needed
+     */
     private void returnHelp() {
         HelpFormatter formatter = new HelpFormatter();
         formatter.printHelp( "Please head over to the README for usage help," +

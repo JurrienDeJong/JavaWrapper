@@ -4,8 +4,8 @@
 # Log file
 *.log
 
-# Gradle files
-gradle/wrapper
+# .Gradle file
+.gradle
 
 # BlueJ files
 *.ctxt
