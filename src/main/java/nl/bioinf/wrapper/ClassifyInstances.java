@@ -4,22 +4,28 @@ import weka.classifiers.trees.J48;
 import weka.core.DenseInstance;
 import weka.core.Instance;
 import weka.core.Instances;
-import java.util.ArrayList;
 
+/**
+ * This class can classify batches of instances, and single ones.
+ * The results will also be printed to the user in a descriptive way.
+ * @author Jurrien de Jong
+ * @version 1.0
+ */
 
 public class ClassifyInstances {
     // Only classify a single instance
-    protected void classifyNewInstance(J48 model, Instances data, ArrayList<Double> vals) throws  Exception
+    protected void classifyNewInstance(J48 model, Instances data, double[] values) throws  Exception
     {
-        double[] values = new double[data.numAttributes()];
-        values[0] = vals.get(0);
-        values[1] = vals.get(1);
-        values[2] = vals.get(2);
-
+        // Create a single instance using DenseInstance:
         Instance inst = new DenseInstance(1, values);
+
+        // set the learning dataset:
         inst.setDataset(data);
 
+        // Get a predicted class ( 0 or 1 ):
         double predictedClass = model.classifyInstance(inst);
+
+        // Return (print) the outcome for the user:
         System.out.println("Classified Instance:");
         System.out.println("\tAge ( in years ): " + values[0] +
                 "\n\tSerum Creatinine ( in mg/dL ): " + values[1] +
@@ -29,6 +35,7 @@ public class ClassifyInstances {
 
     protected void classifyInstanceFile(J48 tree, Instances unknownInstances) throws Exception {
         for (int i = 0; i < unknownInstances.numInstances(); i++) {
+            // Loop over each instance and get the class label:
             double predictedClass = tree.classifyInstance(unknownInstances.instance(i));
             System.out.println("Classified Instance No: " + (i + 1));
 
@@ -43,13 +50,19 @@ public class ClassifyInstances {
     }
 
     private void printResults(double predictedClass){
-        if (predictedClass == 1.0)
-        {
-            System.out.println("Result:\nSadly, the patient has a high chance of passing away.");
-        } else
-        {
-            System.out.println("Result:\nThe patient will live!");
+        // Print the case for the corresponding Class
+        // Switch sadly cannot handle doubles.
+        // So another conversion needs to be done:
+        switch ((int)predictedClass) {
+            case 0:
+                System.out.println("Result:\nSadly, the patient has a high chance of passing away.");
+                break;
+            case 1:
+                System.out.println("Result:\nThe patient will live!");
+                break;
+            default:
+                System.out.println("Result:\nThe classification went wrong!");
         }
-        System.out.println("-------------------------------");
+        System.out.println("\n-------------------------------------\n");
     }
 }

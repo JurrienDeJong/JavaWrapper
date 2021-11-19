@@ -2,7 +2,17 @@ package nl.bioinf.wrapper;
 
 import org.apache.commons.cli.*;
 
-public class CmdLineManager implements OptionsProvider{
+/**
+ * This class regulates all things user-input related.
+ * It will implement all methods from interface ProvideOptions
+ * When arguments are given, they are checked first.
+ * Afterward. Send the values over to the main for the next steps.
+ * @author Jurrien de Jong
+ * @version 1.0
+ */
+
+
+public class CmdLineManager implements ProvideOptions{
     protected Options options;
     protected CommandLine cmd;
     protected String file_path;
@@ -38,28 +48,27 @@ public class CmdLineManager implements OptionsProvider{
                 "file",
                 true,
                 "The file with instances to be classified."));
-        options.addOption(new Option("o",
-                "file",
-                true,
-                "Output file destination."));
     }
 
     private void argParse(String[] args) {
+        // Parse the arguments using a CommandLineParser
         CommandLineParser parser = new BasicParser();
         try {
             this.cmd = parser.parse(options, args);
             if (cmd.hasOption('h')) {
-                printHelp();
+                returnHelp();
             }
-            verifyArguments();
+            // Check if args are valid:
+            checkArguments();
         } catch (ParseException e) {
             System.out.println("Something went wrong while parsing, cause: "
                     + e.getMessage());
-            printHelp();
+            returnHelp();
         }
     }
 
-    private void verifyArguments() throws ParseException {
+    private void checkArguments() throws ParseException {
+        // Verify file;
         if (cmd.hasOption('f')) {
             this.file_path = cmd.getOptionValue('f');
             useFile = true;
@@ -67,10 +76,12 @@ public class CmdLineManager implements OptionsProvider{
         }
         else
         {
+            // If no file provided, check for input parameters:
             if (!cmd.hasOption('a') | !cmd.hasOption('c') | !cmd.hasOption('s')) {
                 throw new ParseException("No input parameters or file found!");
             } else {
                 System.out.println("Input Type: Single Instance\nTaking input params\n");
+                // Parse params:
                 this.serCreatinin = Double.parseDouble(cmd.getOptionValue('c'));
                 this.serSodium = Double.parseDouble(cmd.getOptionValue('s'));
                 this.age = Integer.parseInt(cmd.getOptionValue('a'));
@@ -78,9 +89,10 @@ public class CmdLineManager implements OptionsProvider{
         }
     }
 
-    private void printHelp() {
+    private void returnHelp() {
         HelpFormatter formatter = new HelpFormatter();
-        formatter.printHelp( "java -jar [file.jar] [options]", options );
+        formatter.printHelp( "Please head over to the README for usage help," +
+                " otherwise send me an email, also listed there.\n", options );
     }
 
     // ------------ Override methods ------------ //
